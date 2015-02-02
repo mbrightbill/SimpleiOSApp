@@ -9,6 +9,8 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *textLabel;
+@property (weak, nonatomic) IBOutlet UITextField *textField;
 
 @end
 
@@ -16,12 +18,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    self.textField.delegate = self;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+- (NSString *)reverseString:(NSString *) originalString {
+    NSUInteger length = originalString.length;
+    NSMutableString *reversedString = [NSMutableString stringWithCapacity:length];
+    
+    for (int i = length - 1; i >= 0; i--) {
+        [reversedString appendFormat:[NSString stringWithFormat:@"%c", [originalString characterAtIndex:i]]];
+    }
+    return reversedString;
+    
 }
+
+- (IBAction)didPressReverseButton:(id)sender {
+    
+    NSString *newResult = [self reverseString:self.textField.text];
+    
+    self.textLabel.text = newResult;
+    
+}
+
 
 @end
